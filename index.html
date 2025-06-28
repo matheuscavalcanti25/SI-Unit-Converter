@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor Universal de Unidades SI - Engenharia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Conversor Universal de Unidades SI</h1>
+    <button id="btnTema">Modo Escuro</button>
+
+    <div class="converter">
+      <label for="categoria">Categoria:</label>
+      <select id="categoria">
+        <option value="peso">Peso / Massa</option>
+        <option value="comprimento">Comprimento</option>
+        <option value="tempo">Tempo</option>
+        <option value="energia">Energia</option>
+        <option value="pressao">Pressão</option>
+        <option value="temperatura">Temperatura</option>
+        <option value="velocidade">Velocidade</option>
+        <option value="volume">Volume</option>
+        <option value="forca">Força</option>
+        <option value="potencia">Potência</option>
+      </select>
+
+      <label for="valor">Valor:</label>
+      <input type="number" id="valor" step="any" value="1">
+
+      <div class="unidades-linha">
+        <div>
+          <label for="prefixoDe">Prefixo (De):</label>
+          <select id="prefixoDe"></select>
+        </div>
+        <div>
+          <label for="unidadeDe">Unidade (De):</label>
+          <select id="unidadeDe"></select>
+        </div>
+      </div>
+
+      <div class="unidades-linha">
+        <div>
+          <label for="prefixoPara">Prefixo (Para):</label>
+          <select id="prefixoPara"></select>
+        </div>
+        <div>
+          <label for="unidadePara">Unidade (Para):</label>
+          <select id="unidadePara"></select>
+        </div>
+      </div>
+
+      <button id="btnConverter">Converter</button>
+
+      <div class="descricao">
+        <p><strong>Sobre a unidade de origem:</strong> <span id="descDe">-</span></p>
+        <p><strong>Sobre a unidade de destino:</strong> <span id="descPara">-</span></p>
+      </div>
+
+      <div id="resultado"></div>
+      <div id="erro"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
