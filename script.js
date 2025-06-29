@@ -1,12 +1,10 @@
-// Configuração do Tema Escuro
 document.addEventListener('DOMContentLoaded', function() {
-  // Verificar tema ao carregar
+
   if (localStorage.getItem('darkMode') === 'enabled') {
     document.body.classList.add('dark-mode');
     document.getElementById('btnTema').textContent = 'Modo Claro';
   }
 
-  // Configurar evento do botão de tema
   document.getElementById('btnTema').addEventListener('click', function() {
     document.body.classList.toggle('dark-mode');
     
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Mapear categorias PT -> chave API
 const categoriasMap = {
   peso: "weight",
   comprimento: "length",
@@ -34,7 +31,6 @@ const categoriasMap = {
   potencia: "power",
 };
 
-// Prefixos SI com fator e descrição
 const prefixosSI = {
   "": { fator: 1, nome: "Nenhum", descricao: "Sem prefixo" },
   Y: { fator: 1e24, nome: "Yotta (Y)", descricao: "10²⁴" },
@@ -59,7 +55,6 @@ const prefixosSI = {
   y: { fator: 1e-24, nome: "Yocto (y)", descricao: "10⁻²⁴" },
 };
 
-// Fatores de conversão entre unidades
 const fatoresConversao = {
   peso: {
     kilogram: 1,
@@ -130,7 +125,6 @@ const fatoresConversao = {
   }
 };
 
-// Unidades com nomes e descrições
 const unidadesPorCategoria = {
   peso: {
     pound: {
@@ -258,7 +252,6 @@ const unidadesPorCategoria = {
   },
 };
 
-// Função para popular os dropdowns de prefixos
 function popularPrefixos() {
   const selPrefixoDe = document.getElementById("prefixoDe");
   const selPrefixoPara = document.getElementById("prefixoPara");
@@ -280,7 +273,6 @@ function popularPrefixos() {
   selPrefixoPara.value = "";
 }
 
-// Função para atualizar as unidades quando a categoria muda
 function atualizarUnidades() {
   const categoriaPT = document.getElementById("categoria").value;
   const unidadeDe = document.getElementById("unidadeDe");
@@ -307,7 +299,6 @@ function atualizarUnidades() {
   converter();
 }
 
-// Função para mostrar a descrição da unidade
 function mostrarDescricao(origem) {
   const categoriaPT = document.getElementById("categoria").value;
   const unidadeSelecionada = document.getElementById(origem === "de" ? "unidadeDe" : "unidadePara").value;
@@ -319,7 +310,6 @@ function mostrarDescricao(origem) {
   document.getElementById(origem === "de" ? "descDe" : "descPara").innerText = texto;
 }
 
-// Função para formatar o resultado
 function formatarResultado(valor) {
   if (valor === 0) return "0";
   if (Math.abs(valor) < 0.001 || Math.abs(valor) > 1e6) {
@@ -328,7 +318,6 @@ function formatarResultado(valor) {
   return valor.toFixed(6).replace(/(\.\d*?[1-9])0+$/, "$1").replace(/\.$/, "");
 }
 
-// Função principal de conversão
 function converter() {
   const valorInput = document.getElementById("valor").value;
   const categoriaPT = document.getElementById("categoria").value;
@@ -349,10 +338,8 @@ function converter() {
 
   let valorNum = Number(valorInput);
 
-  // Aplica prefixo de origem
   valorNum = valorNum * (prefixosSI[prefixoDe]?.fator || 1);
 
-  // Tratamento especial para temperatura
   if (categoriaPT === "temperatura") {
     if (prefixoDe !== "" || prefixoPara !== "") {
       erroDiv.innerText = "Prefixos não são aplicáveis para temperatura.";
@@ -369,7 +356,6 @@ function converter() {
     return;
   }
 
-  // Para outras categorias
   try {
     const valorEmBase = valorNum * fatoresConversao[categoriaPT][unidadeDe];
     const valorConvertido = valorEmBase / fatoresConversao[categoriaPT][unidadePara];
@@ -386,12 +372,10 @@ function converter() {
   }
 }
 
-// Inicialização quando a página carrega
 window.onload = function() {
   popularPrefixos();
   atualizarUnidades();
 
-  // Configurar event listeners
   document.getElementById("categoria").addEventListener("change", atualizarUnidades);
   document.getElementById("unidadeDe").addEventListener("change", () => {
     mostrarDescricao("de");
